@@ -10,6 +10,7 @@ pair_id_field = "pair_id"
 train_fraction = 0.70
 validation_fraction = 0.10
 test_fraction = 0.20
+root = "data"
 
 [cross_validation]
 n_splits = 5
@@ -17,7 +18,7 @@ group_by_pair = true
 random_state = 42
 
 [training]
-model_seeds = [13, 42, 101]
+model_seeds = [13, 21, 40, 42, 73, 101]
 
 [graphs]
 names = ["cooccurrence", "ppmi", "pun_context"]

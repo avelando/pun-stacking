@@ -1,0 +1,179 @@
+{
+  "strategy": "pair_controlled",
+  "source": {
+    "examples": 5700,
+    "pairs": 2850,
+    "cross_split_pairs": 1306,
+    "sizes": {
+      "train": 3990,
+      "validation": 570,
+      "test": 1140
+    },
+    "classes": {
+      "train": {
+        "0": 1995,
+        "1": 1995
+      },
+      "validation": {
+        "0": 285,
+        "1": 285
+      },
+      "test": {
+        "0": 570,
+        "1": 570
+      }
+    }
+  },
+  "partitions": [
+    {
+      "seed": 13,
+      "examples": 5700,
+      "pairs": 2850,
+      "cross_split_pairs": 0,
+      "sizes": {
+        "train": 3990,
+        "validation": 570,
+        "test": 1140
+      },
+      "classes": {
+        "train": {
+          "0": 1995,
+          "1": 1995
+        },
+        "validation": {
+          "0": 285,
+          "1": 285
+        },
+        "test": {
+          "0": 570,
+          "1": 570
+        }
+      }
+    },
+    {
+      "seed": 21,
+      "examples": 5700,
+      "pairs": 2850,
+      "cross_split_pairs": 0,
+      "sizes": {
+        "train": 3990,
+        "validation": 570,
+        "test": 1140
+      },
+      "classes": {
+        "train": {
+          "0": 1995,
+          "1": 1995
+        },
+        "validation": {
+          "0": 285,
+          "1": 285
+        },
+        "test": {
+          "0": 570,
+          "1": 570
+        }
+      }
+    },
+    {
+      "seed": 40,
+      "examples": 5700,
+      "pairs": 2850,
+      "cross_split_pairs": 0,
+      "sizes": {
+        "train": 3990,
+        "validation": 570,
+        "test": 1140
+      },
+      "classes": {
+        "train": {
+          "0": 1995,
+          "1": 1995
+        },
+        "validation": {
+          "0": 285,
+          "1": 285
+        },
+        "test": {
+          "0": 570,
+          "1": 570
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "examples": 5700,
+      "pairs": 2850,
+      "cross_split_pairs": 0,
+      "sizes": {
+        "train": 3990,
+        "validation": 570,
+        "test": 1140
+      },
+      "classes": {
+        "train": {
+          "0": 1995,
+          "1": 1995
+        },
+        "validation": {
+          "0": 285,
+          "1": 285
+        },
+        "test": {
+          "0": 570,
+          "1": 570
+        }
+      }
+    },
+    {
+      "seed": 73,
+      "examples": 5700,
+      "pairs": 2850,
+      "cross_split_pairs": 0,
+      "sizes": {
+        "train": 3990,
+        "validation": 570,
+        "test": 1140
+      },
+      "classes": {
+        "train": {
+          "0": 1995,
+          "1": 1995
+        },
+        "validation": {
+          "0": 285,
+          "1": 285
+        },
+        "test": {
+          "0": 570,
+          "1": 570
+        }
+      }
+    },
+    {
+      "seed": 101,
+      "examples": 5700,
+      "pairs": 2850,
+      "cross_split_pairs": 0,
+      "sizes": {
+        "train": 3990,
+        "validation": 570,
+        "test": 1140
+      },
+      "classes": {
+        "train": {
+          "0": 1995,
+          "1": 1995
+        },
+        "validation": {
+          "0": 285,
+          "1": 285
+        },
+        "test": {
+          "0": 570,
+          "1": 570
+        }
+      }
+    }
+  ]
+}

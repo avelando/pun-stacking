@@ -1,0 +1,385 @@
+{
+  "strategy": "stratified_group_kfold",
+  "n_splits": 5,
+  "random_state": 42,
+  "partitions": [
+    {
+      "split_seed": 13,
+      "total_training_examples": 3990,
+      "total_training_pairs": 1995,
+      "folds": [
+        {
+          "fold": 0,
+          "train_examples": 3192,
+          "validation_examples": 798,
+          "train_pairs": 1596,
+          "validation_pairs": 399,
+          "validation_class_counts": {
+            "0": 399,
+            "1": 399
+          }
+        },
+        {
+          "fold": 1,
+          "train_examples": 3192,
+          "validation_examples": 798,
+          "train_pairs": 1596,
+          "validation_pairs": 399,
+          "validation_class_counts": {
+            "0": 399,
+            "1": 399
+          }
+        },
+        {
+          "fold": 2,
+          "train_examples": 3192,
+          "validation_examples": 798,
+          "train_pairs": 1596,
+          "validation_pairs": 399,
+          "validation_class_counts": {
+            "0": 399,
+            "1": 399
+          }
+        },
+        {
+          "fold": 3,
+          "train_examples": 3192,
+          "validation_examples": 798,
+          "train_pairs": 1596,
+          "validation_pairs": 399,
+          "validation_class_counts": {
+            "0": 399,
+            "1": 399
+          }
+        },
+        {
+          "fold": 4,
+          "train_examples": 3192,
+          "validation_examples": 798,
+          "train_pairs": 1596,
+          "validation_pairs": 399,
+          "validation_class_counts": {
+            "0": 399,
+            "1": 399
+          }
+        }
+      ],
+      "assignment_file": "data/folds/seed_13.csv"
+    },
+    {
+      "split_seed": 21,
+      "total_training_examples": 3990,
+      "total_training_pairs": 1995,
+      "folds": [
+        {
+          "fold": 0,
+          "train_examples": 3192,
+          "validation_examples": 798,
+          "train_pairs": 1596,
+          "validation_pairs": 399,
+          "validation_class_counts": {
+            "0": 399,
+            "1": 399
+          }
+        },
+        {
+          "fold": 1,
+          "train_examples": 3192,
+          "validation_examples": 798,
+          "train_pairs": 1596,
+          "validation_pairs": 399,
+          "validation_class_counts": {
+            "0": 399,
+            "1": 399
+          }
+        },
+        {
+          "fold": 2,
+          "train_examples": 3192,
+          "validation_examples": 798,
+          "train_pairs": 1596,
+          "validation_pairs": 399,
+          "validation_class_counts": {
+            "0": 399,
+            "1": 399
+          }
+        },
+        {
+          "fold": 3,
+          "train_examples": 3192,
+          "validation_examples": 798,
+          "train_pairs": 1596,
+          "validation_pairs": 399,
+          "validation_class_counts": {
+            "0": 399,
+            "1": 399
+          }
+        },
+        {
+          "fold": 4,
+          "train_examples": 3192,
+          "validation_examples": 798,
+          "train_pairs": 1596,
+          "validation_pairs": 399,
+          "validation_class_counts": {
+            "0": 399,
+            "1": 399
+          }
+        }
+      ],
+      "assignment_file": "data/folds/seed_21.csv"
+    },
+    {
+      "split_seed": 40,
+      "total_training_examples": 3990,
+      "total_training_pairs": 1995,
+      "folds": [
+        {
+          "fold": 0,
+          "train_examples": 3192,
+          "validation_examples": 798,
+          "train_pairs": 1596,
+          "validation_pairs": 399,
+          "validation_class_counts": {
+            "0": 399,
+            "1": 399
+          }
+        },
+        {
+          "fold": 1,
+          "train_examples": 3192,
+          "validation_examples": 798,
+          "train_pairs": 1596,
+          "validation_pairs": 399,
+          "validation_class_counts": {
+            "0": 399,
+            "1": 399
+          }
+        },
+        {
+          "fold": 2,
+          "train_examples": 3192,
+          "validation_examples": 798,
+          "train_pairs": 1596,
+          "validation_pairs": 399,
+          "validation_class_counts": {
+            "0": 399,
+            "1": 399
+          }
+        },
+        {
+          "fold": 3,
+          "train_examples": 3192,
+          "validation_examples": 798,
+          "train_pairs": 1596,
+          "validation_pairs": 399,
+          "validation_class_counts": {
+            "0": 399,
+            "1": 399
+          }
+        },
+        {
+          "fold": 4,
+          "train_examples": 3192,
+          "validation_examples": 798,
+          "train_pairs": 1596,
+          "validation_pairs": 399,
+          "validation_class_counts": {
+            "0": 399,
+            "1": 399
+          }
+        }
+      ],
+      "assignment_file": "data/folds/seed_40.csv"
+    },
+    {
+      "split_seed": 42,
+      "total_training_examples": 3990,
+      "total_training_pairs": 1995,
+      "folds": [
+        {
+          "fold": 0,
+          "train_examples": 3192,
+          "validation_examples": 798,
+          "train_pairs": 1596,
+          "validation_pairs": 399,
+          "validation_class_counts": {
+            "0": 399,
+            "1": 399
+          }
+        },
+        {
+          "fold": 1,
+          "train_examples": 3192,
+          "validation_examples": 798,
+          "train_pairs": 1596,
+          "validation_pairs": 399,
+          "validation_class_counts": {
+            "0": 399,
+            "1": 399
+          }
+        },
+        {
+          "fold": 2,
+          "train_examples": 3192,
+          "validation_examples": 798,
+          "train_pairs": 1596,
+          "validation_pairs": 399,
+          "validation_class_counts": {
+            "0": 399,
+            "1": 399
+          }
+        },
+        {
+          "fold": 3,
+          "train_examples": 3192,
+          "validation_examples": 798,
+          "train_pairs": 1596,
+          "validation_pairs": 399,
+          "validation_class_counts": {
+            "0": 399,
+            "1": 399
+          }
+        },
+        {
+          "fold": 4,
+          "train_examples": 3192,
+          "validation_examples": 798,
+          "train_pairs": 1596,
+          "validation_pairs": 399,
+          "validation_class_counts": {
+            "0": 399,
+            "1": 399
+          }
+        }
+      ],
+      "assignment_file": "data/folds/seed_42.csv"
+    },
+    {
+      "split_seed": 73,
+      "total_training_examples": 3990,
+      "total_training_pairs": 1995,
+      "folds": [
+        {
+          "fold": 0,
+          "train_examples": 3192,
+          "validation_examples": 798,
+          "train_pairs": 1596,
+          "validation_pairs": 399,
+          "validation_class_counts": {
+            "0": 399,
+            "1": 399
+          }
+        },
+        {
+          "fold": 1,
+          "train_examples": 3192,
+          "validation_examples": 798,
+          "train_pairs": 1596,
+          "validation_pairs": 399,
+          "validation_class_counts": {
+            "0": 399,
+            "1": 399
+          }
+        },
+        {
+          "fold": 2,
+          "train_examples": 3192,
+          "validation_examples": 798,
+          "train_pairs": 1596,
+          "validation_pairs": 399,
+          "validation_class_counts": {
+            "0": 399,
+            "1": 399
+          }
+        },
+        {
+          "fold": 3,
+          "train_examples": 3192,
+          "validation_examples": 798,
+          "train_pairs": 1596,
+          "validation_pairs": 399,
+          "validation_class_counts": {
+            "0": 399,
+            "1": 399
+          }
+        },
+        {
+          "fold": 4,
+          "train_examples": 3192,
+          "validation_examples": 798,
+          "train_pairs": 1596,
+          "validation_pairs": 399,
+          "validation_class_counts": {
+            "0": 399,
+            "1": 399
+          }
+        }
+      ],
+      "assignment_file": "data/folds/seed_73.csv"
+    },
+    {
+      "split_seed": 101,
+      "total_training_examples": 3990,
+      "total_training_pairs": 1995,
+      "folds": [
+        {
+          "fold": 0,
+          "train_examples": 3192,
+          "validation_examples": 798,
+          "train_pairs": 1596,
+          "validation_pairs": 399,
+          "validation_class_counts": {
+            "0": 399,
+            "1": 399
+          }
+        },
+        {
+          "fold": 1,
+          "train_examples": 3192,
+          "validation_examples": 798,
+          "train_pairs": 1596,
+          "validation_pairs": 399,
+          "validation_class_counts": {
+            "0": 399,
+            "1": 399
+          }
+        },
+        {
+          "fold": 2,
+          "train_examples": 3192,
+          "validation_examples": 798,
+          "train_pairs": 1596,
+          "validation_pairs": 399,
+          "validation_class_counts": {
+            "0": 399,
+            "1": 399
+          }
+        },
+        {
+          "fold": 3,
+          "train_examples": 3192,
+          "validation_examples": 798,
+          "train_pairs": 1596,
+          "validation_pairs": 399,
+          "validation_class_counts": {
+            "0": 399,
+            "1": 399
+          }
+        },
+        {
+          "fold": 4,
+          "train_examples": 3192,
+          "validation_examples": 798,
+          "train_pairs": 1596,
+          "validation_pairs": 399,
+          "validation_class_counts": {
+            "0": 399,
+            "1": 399
+          }
+        }
+      ],
+      "assignment_file": "data/folds/seed_101.csv"
+    }
+  ]
+}

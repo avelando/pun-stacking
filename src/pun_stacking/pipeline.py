@@ -1,5 +1,8 @@
 from dataclasses import dataclass
-from typing import Callable
+from collections.abc import Callable
+
+from pun_stacking.data.audit import audit_data
+from pun_stacking.data.folds import build_folds
 
 
 @dataclass(frozen=True)
@@ -10,7 +13,11 @@ class Stage:
 
 
 def prepare_data() -> None:
-    raise NotImplementedError("Dataset preparation is not implemented")
+    audit_data()
+
+
+def prepare_folds() -> None:
+    build_folds()
 
 
 def build_graphs() -> None:
@@ -43,6 +50,7 @@ def evaluate() -> None:
 
 STAGES = (
     Stage("data", "Prepare and validate dataset", prepare_data),
+    Stage("folds", "Create pair-grouped OOF folds", prepare_folds),
     Stage("graphs", "Build knowledge graphs", build_graphs),
     Stage("bertimbau", "Train BERTimbau Large", train_bertimbau),
     Stage("embeddings", "Extract sentence embeddings", extract_embeddings),

@@ -46,9 +46,7 @@ def show_menu() -> None:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(
-        description="Portuguese pun detection experimental pipeline"
-    )
+    parser = argparse.ArgumentParser(description="Portuguese pun detection experimental pipeline")
 
     subparsers = parser.add_subparsers(dest="command")
 

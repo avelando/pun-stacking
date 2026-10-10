@@ -1,0 +1,7 @@
+strategy,seed,total_examples,total_pairs,train_examples,validation_examples,test_examples,cross_split_pairs,cross_split_rate
+pair_controlled,13,5700,2850,3990,570,1140,0,0.0
+pair_controlled,21,5700,2850,3990,570,1140,0,0.0
+pair_controlled,40,5700,2850,3990,570,1140,0,0.0
+pair_controlled,42,5700,2850,3990,570,1140,0,0.0
+pair_controlled,73,5700,2850,3990,570,1140,0,0.0
+pair_controlled,101,5700,2850,3990,570,1140,0,0.0

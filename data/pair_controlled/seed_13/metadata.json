@@ -1,0 +1,25 @@
+{
+  "strategy": "pair_controlled",
+  "seed": 13,
+  "total_examples": 5700,
+  "total_pairs": 2850,
+  "train_examples": 3990,
+  "validation_examples": 570,
+  "test_examples": 1140,
+  "cross_split_pairs": 0,
+  "cross_split_rate": 0.0,
+  "class_distribution": {
+    "train": {
+      "0": 1995,
+      "1": 1995
+    },
+    "validation": {
+      "0": 285,
+      "1": 285
+    },
+    "test": {
+      "0": 570,
+      "1": 570
+    }
+  }
+}

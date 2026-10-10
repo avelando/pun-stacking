@@ -8,14 +8,11 @@ __pycache__/
 .env
 .env.*
 
-data/
-datasets/
 artifacts/
 checkpoints/
 cache/
 logs/
 outputs/
-reports/generated/
 
 *.pt
 *.pth

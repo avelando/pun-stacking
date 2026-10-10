@@ -1,6 +1,6 @@
 import pytest
 
-from pun_stacking.pipeline import STAGES, run_pipeline, run_stage
+from pun_stacking.pipeline import STAGES, run_stage
 
 
 def test_stage_names_are_unique():
@@ -14,6 +14,7 @@ def test_expected_stages_exist():
 
     assert names == {
         "data",
+        "folds",
         "graphs",
         "bertimbau",
         "embeddings",
@@ -34,9 +35,33 @@ def test_unimplemented_stage():
         run_stage("graphs")
 
 
-def test_pipeline_stops_on_unimplemented_stage():
+def test_pipeline_stops_on_unimplemented_stage(monkeypatch):
+    from pun_stacking import pipeline
+
+    completed_data = pipeline.Stage(
+        "data",
+        "Prepare and validate dataset",
+        lambda: None,
+    )
+
+    completed_folds = pipeline.Stage(
+        "folds",
+        "Create pair-grouped OOF folds",
+        lambda: None,
+    )
+
+    monkeypatch.setattr(
+        pipeline,
+        "STAGES",
+        (
+            completed_data,
+            completed_folds,
+            *pipeline.STAGES[2:],
+        ),
+    )
+
     with pytest.raises(
         NotImplementedError,
-        match="Dataset preparation",
+        match="Graph construction",
     ):
-        run_pipeline()
+        pipeline.run_pipeline()
