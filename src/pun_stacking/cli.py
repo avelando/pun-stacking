@@ -59,6 +59,18 @@ def main() -> None:
         choices=["all", *(stage.name for stage in STAGES)],
     )
 
+    run_parser.add_argument(
+        "--split-seed",
+        type=int,
+        default=None,
+    )
+
+    run_parser.add_argument(
+        "--model-seed",
+        type=int,
+        default=None,
+    )
+
     args = parser.parse_args()
 
     if args.command in (None, "menu"):
@@ -66,9 +78,21 @@ def main() -> None:
         return
 
     if args.stage == "all":
+        if args.split_seed is not None or args.model_seed is not None:
+            parser.error("Seed filters cannot be used with the full pipeline")
+
         run_pipeline()
-    else:
-        run_stage(args.stage)
+        return
+
+    if args.stage != "bertimbau":
+        if args.split_seed is not None or args.model_seed is not None:
+            parser.error("Seed filters are only supported for BERTimbau")
+
+    run_stage(
+        args.stage,
+        split_seed=args.split_seed,
+        model_seed=args.model_seed,
+    )
 
 
 if __name__ == "__main__":

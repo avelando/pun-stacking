@@ -4,7 +4,6 @@ from collections import Counter, defaultdict
 
 import networkx as nx
 
-
 TOKEN_PATTERN = re.compile(
     r"[^a-záàâãéèêíïóôõöúçñ]+",
     flags=re.IGNORECASE,

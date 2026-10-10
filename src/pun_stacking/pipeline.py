@@ -1,5 +1,5 @@
-from dataclasses import dataclass
 from collections.abc import Callable
+from dataclasses import dataclass
 
 from pun_stacking.data.audit import audit_data
 from pun_stacking.data.folds import build_folds
@@ -25,8 +25,16 @@ def build_graphs() -> None:
     build_final_graphs()
 
 
-def train_bertimbau() -> None:
-    raise NotImplementedError("BERTimbau training is not implemented")
+def train_bertimbau(
+    split_seed: int | None = None,
+    model_seed: int | None = None,
+) -> None:
+    from pun_stacking.models.bertimbau import run_bertimbau
+
+    run_bertimbau(
+        split_seed=split_seed,
+        model_seed=model_seed,
+    )
 
 
 def extract_embeddings() -> None:
@@ -62,12 +70,29 @@ STAGES = (
 )
 
 
-def run_stage(name: str) -> None:
+def run_stage(
+    name: str,
+    split_seed: int | None = None,
+    model_seed: int | None = None,
+) -> None:
     for stage in STAGES:
-        if stage.name == name:
-            print(f"Running: {stage.description}")
-            stage.function()
+        if stage.name != name:
+            continue
+
+        print(f"Running: {stage.description}")
+
+        if name == "bertimbau":
+            train_bertimbau(
+                split_seed=split_seed,
+                model_seed=model_seed,
+            )
             return
+
+        if split_seed is not None or model_seed is not None:
+            raise ValueError("Seed selection is currently supported only for BERTimbau")
+
+        stage.function()
+        return
 
     raise ValueError(f"Unknown stage: {name}")
 

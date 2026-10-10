@@ -4,6 +4,7 @@ version = "0.1.0"
 description = "Reproducible experiments for Portuguese pun detection"
 requires-python = ">=3.12,<3.13"
 dependencies = [
+    "accelerate>=1,<2",
     "joblib>=1.6.0",
     "matplotlib>=3.11.2",
     "networkx>=3.7",
@@ -12,7 +13,9 @@ dependencies = [
     "scikit-learn>=1.9.1",
     "scipy>=1.18.1",
     "seaborn>=0.13.2",
+    "torch>=2.11,<3",
     "tqdm>=4.70.1",
+    "transformers>=5,<6",
 ]
 
 [dependency-groups]
@@ -37,3 +40,11 @@ line-length = 100
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+
+[tool.uv.sources]
+torch = { index = "pytorch-cu130" }
+
+[[tool.uv.index]]
+name = "pytorch-cu130"
+url = "https://download.pytorch.org/whl/cu130"
+explicit = true

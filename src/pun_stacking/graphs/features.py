@@ -1,4 +1,3 @@
-import re
 from dataclasses import dataclass
 
 import networkx as nx
@@ -6,15 +5,7 @@ import numpy as np
 from scipy.sparse import csr_matrix
 from sklearn.decomposition import TruncatedSVD
 
-
-TEXT_TOKEN_PATTERN = re.compile(
-    r"[A-Za-zÀ-ÖØ-öø-ÿ]+",
-    flags=re.UNICODE,
-)
-
-
-def tokenize_text(text: str) -> list[str]:
-    return [token.lower() for token in TEXT_TOKEN_PATTERN.findall(text)]
+from pun_stacking.graphs.builders import normalize_tokens
 
 
 @dataclass
@@ -56,16 +47,16 @@ class GraphFeatureEncoder:
             node_vectors=vectors,
         )
 
-    def transform(self, texts: list[str]) -> np.ndarray:
+    def transform(self, token_sequences: list[list[str]]) -> np.ndarray:
         dimensions = self.node_vectors.shape[1]
 
         features = np.zeros(
-            (len(texts), dimensions + 2),
+            (len(token_sequences), dimensions + 2),
             dtype=np.float32,
         )
 
-        for row_index, text in enumerate(texts):
-            tokens = tokenize_text(text)
+        for row_index, raw_tokens in enumerate(token_sequences):
+            tokens = normalize_tokens(raw_tokens)
 
             if not tokens:
                 continue

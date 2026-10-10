@@ -1,8 +1,7 @@
-from collections import Counter, defaultdict
 import json
-from pathlib import Path
 import tomllib
-
+from collections import Counter, defaultdict
+from pathlib import Path
 
 SPLIT_NAMES = ("train", "validation", "test")
 
@@ -48,7 +47,7 @@ def load_jsonl(path: Path) -> list[dict]:
                 raise ValueError(f"Invalid JSON in {path}:{line_number}") from error
 
             if not isinstance(record, dict):
-                raise ValueError(f"Invalid record in {path}:{line_number}")
+                raise TypeError(f"Invalid record in {path}:{line_number}")
 
             example_id = record.get("id")
             pair_id(example_id)
