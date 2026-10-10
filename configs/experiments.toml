@@ -1,0 +1,54 @@
+[experiment]
+name = "rigorous-pun-stacking"
+random_state = 42
+
+[data]
+dataset = "puntuguese"
+split_strategy = "pair_preserving"
+split_seeds = [13, 21, 40, 42, 73, 101]
+pair_id_field = "pair_id"
+train_fraction = 0.70
+validation_fraction = 0.10
+test_fraction = 0.20
+
+[cross_validation]
+n_splits = 5
+group_by_pair = true
+random_state = 42
+
+[training]
+model_seeds = [13, 42, 101]
+
+[graphs]
+names = ["cooccurrence", "ppmi", "pun_context"]
+rebuild_for_each_split = true
+rebuild_for_oof = true
+
+[embeddings]
+models = [
+    "intfloat/multilingual-e5-large",
+    "Qwen/Qwen3-Embedding-0.6B",
+    "google/embeddinggemma-300m",
+    "sentence-transformers/paraphrase-multilingual-mpnet-base-v2",
+]
+fine_tune = false
+
+[bertimbau]
+model = "neuralmind/bert-large-portuguese-cased"
+enabled = true
+max_length = 256
+learning_rate = 0.00002
+epochs = 6
+batch_size = 8
+weight_decay = 0.01
+warmup_ratio = 0.1
+early_stopping_patience = 2
+
+[stacking]
+enabled = true
+meta_classifier = "logistic_regression"
+use_oof = true
+
+[evaluation]
+primary_metric = "accuracy"
+metrics = ["accuracy", "f1_macro", "pair_exact_accuracy"]
