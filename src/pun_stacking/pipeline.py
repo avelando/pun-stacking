@@ -3,6 +3,7 @@ from collections.abc import Callable
 
 from pun_stacking.data.audit import audit_data
 from pun_stacking.data.folds import build_folds
+from pun_stacking.graphs.runner import build_final_graphs
 
 
 @dataclass(frozen=True)
@@ -21,7 +22,7 @@ def prepare_folds() -> None:
 
 
 def build_graphs() -> None:
-    raise NotImplementedError("Graph construction is not implemented")
+    build_final_graphs()
 
 
 def train_bertimbau() -> None:

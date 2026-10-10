@@ -1,0 +1,180 @@
+{
+  "strategy": "pair_controlled",
+  "construction_scope": "external_training_only",
+  "graph_configuration": {
+    "names": [
+      "cooccurrence",
+      "ppmi",
+      "pun_context"
+    ],
+    "svd_dimensions": 4,
+    "svd_seed": 42,
+    "oof_mode": "on_demand",
+    "cooccurrence": {
+      "window": 5,
+      "min_freq": 5,
+      "top_k": 30
+    },
+    "ppmi": {
+      "window": 5,
+      "min_freq": 5,
+      "top_k": 30
+    },
+    "pun_context": {
+      "min_freq": 3,
+      "top_k": 40
+    }
+  },
+  "partitions": [
+    {
+      "split_seed": 13,
+      "training_examples": 3990,
+      "graphs": {
+        "cooccurrence": {
+          "nodes": 1128,
+          "edges": 21159,
+          "components": 1,
+          "density": 0.03328833846211935
+        },
+        "ppmi": {
+          "nodes": 1128,
+          "edges": 16772,
+          "components": 1,
+          "density": 0.0263865027972336
+        },
+        "pun_context": {
+          "nodes": 938,
+          "edges": 5554,
+          "components": 1,
+          "density": 0.012638439150489358
+        }
+      },
+      "artifact_directory": "artifacts/graphs/pair_controlled/seed_13/final"
+    },
+    {
+      "split_seed": 21,
+      "training_examples": 3990,
+      "graphs": {
+        "cooccurrence": {
+          "nodes": 1150,
+          "edges": 21206,
+          "components": 1,
+          "density": 0.03209747606614447
+        },
+        "ppmi": {
+          "nodes": 1150,
+          "edges": 16845,
+          "components": 1,
+          "density": 0.025496651152230675
+        },
+        "pun_context": {
+          "nodes": 919,
+          "edges": 5251,
+          "components": 1,
+          "density": 0.01244840821106583
+        }
+      },
+      "artifact_directory": "artifacts/graphs/pair_controlled/seed_21/final"
+    },
+    {
+      "split_seed": 40,
+      "training_examples": 3990,
+      "graphs": {
+        "cooccurrence": {
+          "nodes": 1156,
+          "edges": 21312,
+          "components": 1,
+          "density": 0.03192378555700355
+        },
+        "ppmi": {
+          "nodes": 1156,
+          "edges": 16962,
+          "components": 1,
+          "density": 0.025407810182896687
+        },
+        "pun_context": {
+          "nodes": 920,
+          "edges": 5442,
+          "components": 1,
+          "density": 0.012873160808061692
+        }
+      },
+      "artifact_directory": "artifacts/graphs/pair_controlled/seed_40/final"
+    },
+    {
+      "split_seed": 42,
+      "training_examples": 3990,
+      "graphs": {
+        "cooccurrence": {
+          "nodes": 1141,
+          "edges": 20961,
+          "components": 1,
+          "density": 0.032229346372065135
+        },
+        "ppmi": {
+          "nodes": 1141,
+          "edges": 16701,
+          "components": 1,
+          "density": 0.025679228746713408
+        },
+        "pun_context": {
+          "nodes": 907,
+          "edges": 5051,
+          "components": 1,
+          "density": 0.012293396224119006
+        }
+      },
+      "artifact_directory": "artifacts/graphs/pair_controlled/seed_42/final"
+    },
+    {
+      "split_seed": 73,
+      "training_examples": 3990,
+      "graphs": {
+        "cooccurrence": {
+          "nodes": 1153,
+          "edges": 21351,
+          "components": 1,
+          "density": 0.032148923099161605
+        },
+        "ppmi": {
+          "nodes": 1153,
+          "edges": 16909,
+          "components": 1,
+          "density": 0.025460453406572228
+        },
+        "pun_context": {
+          "nodes": 906,
+          "edges": 5141,
+          "components": 1,
+          "density": 0.012540094886148817
+        }
+      },
+      "artifact_directory": "artifacts/graphs/pair_controlled/seed_73/final"
+    },
+    {
+      "split_seed": 101,
+      "training_examples": 3990,
+      "graphs": {
+        "cooccurrence": {
+          "nodes": 1148,
+          "edges": 21103,
+          "components": 1,
+          "density": 0.03205301513720082
+        },
+        "ppmi": {
+          "nodes": 1148,
+          "edges": 16794,
+          "components": 1,
+          "density": 0.025508142738669883
+        },
+        "pun_context": {
+          "nodes": 933,
+          "edges": 5403,
+          "components": 1,
+          "density": 0.012427031726536301
+        }
+      },
+      "artifact_directory": "artifacts/graphs/pair_controlled/seed_101/final"
+    }
+  ]
+}

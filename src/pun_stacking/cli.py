@@ -22,24 +22,24 @@ def show_menu() -> None:
         if choice == "q":
             return
 
-        try:
-            if choice == "0":
-                run_pipeline()
-                continue
+        if choice == "0":
+            run_pipeline()
+            continue
 
-            index = int(choice)
-
-            if 1 <= index <= len(STAGES):
-                run_stage(STAGES[index - 1].name)
-            else:
-                print("Invalid option")
-
-        except ValueError:
+        if not choice.isdigit():
             print("Invalid option")
+            continue
 
+        index = int(choice)
+
+        if not 1 <= index <= len(STAGES):
+            print("Invalid option")
+            continue
+
+        try:
+            run_stage(STAGES[index - 1].name)
         except NotImplementedError as error:
             print(f"Unavailable: {error}")
-
         except KeyboardInterrupt:
             print("\nOperation interrupted")
             return

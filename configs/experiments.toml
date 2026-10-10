@@ -22,8 +22,23 @@ model_seeds = [13, 21, 40, 42, 73, 101]
 
 [graphs]
 names = ["cooccurrence", "ppmi", "pun_context"]
-rebuild_for_each_split = true
-rebuild_for_oof = true
+svd_dimensions = 4
+svd_seed = 42
+oof_mode = "on_demand"
+
+[graphs.cooccurrence]
+window = 5
+min_freq = 5
+top_k = 30
+
+[graphs.ppmi]
+window = 5
+min_freq = 5
+top_k = 30
+
+[graphs.pun_context]
+min_freq = 3
+top_k = 40
 
 [embeddings]
 models = [
