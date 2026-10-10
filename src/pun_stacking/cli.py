@@ -71,6 +71,12 @@ def main() -> None:
         default=None,
     )
 
+    run_parser.add_argument(
+        "--embedding",
+        type=str,
+        default=None,
+    )
+
     args = parser.parse_args()
 
     if args.command in (None, "menu"):
@@ -78,20 +84,23 @@ def main() -> None:
         return
 
     if args.stage == "all":
-        if args.split_seed is not None or args.model_seed is not None:
-            parser.error("Seed filters cannot be used with the full pipeline")
+        if args.split_seed is not None or args.model_seed is not None or args.embedding is not None:
+            parser.error("Filters cannot be used with the full pipeline")
 
         run_pipeline()
         return
 
-    if args.stage != "bertimbau":
-        if args.split_seed is not None or args.model_seed is not None:
-            parser.error("Seed filters are only supported for BERTimbau")
+    if args.stage != "bertimbau" and (args.split_seed is not None or args.model_seed is not None):
+        parser.error("Seed filters are only supported for BERTimbau")
+
+    if args.stage != "embeddings" and args.embedding is not None:
+        parser.error("Embedding selection is only supported for embeddings")
 
     run_stage(
         args.stage,
         split_seed=args.split_seed,
         model_seed=args.model_seed,
+        embedding=args.embedding,
     )
 
 

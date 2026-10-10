@@ -37,8 +37,10 @@ def train_bertimbau(
     )
 
 
-def extract_embeddings() -> None:
-    raise NotImplementedError("Embedding extraction is not implemented")
+def extract_embeddings(model_name: str | None = None) -> None:
+    from pun_stacking.embeddings.extract import run_embeddings
+
+    run_embeddings(selected_model=model_name)
 
 
 def train_base_models() -> None:
@@ -74,6 +76,7 @@ def run_stage(
     name: str,
     split_seed: int | None = None,
     model_seed: int | None = None,
+    embedding: str | None = None,
 ) -> None:
     for stage in STAGES:
         if stage.name != name:
@@ -82,14 +85,24 @@ def run_stage(
         print(f"Running: {stage.description}")
 
         if name == "bertimbau":
+            if embedding is not None:
+                raise ValueError("Embedding selection is not supported for BERTimbau")
+
             train_bertimbau(
                 split_seed=split_seed,
                 model_seed=model_seed,
             )
             return
 
-        if split_seed is not None or model_seed is not None:
-            raise ValueError("Seed selection is currently supported only for BERTimbau")
+        if name == "embeddings":
+            if split_seed is not None or model_seed is not None:
+                raise ValueError("Embedding extraction does not use split or model seeds")
+
+            extract_embeddings(model_name=embedding)
+            return
+
+        if split_seed is not None or model_seed is not None or embedding is not None:
+            raise ValueError("Unsupported filters for this pipeline stage")
 
         stage.function()
         return

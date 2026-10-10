@@ -48,6 +48,10 @@ models = [
     "sentence-transformers/paraphrase-multilingual-mpnet-base-v2",
 ]
 fine_tune = false
+batch_size = 8
+max_length = 512
+normalize = true
+device = "cuda"
 
 [bertimbau]
 model = "neuralmind/bert-large-portuguese-cased"

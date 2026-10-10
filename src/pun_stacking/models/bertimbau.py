@@ -184,6 +184,28 @@ def train_single_run(
     report_dir.mkdir(parents=True, exist_ok=True)
     checkpoint_dir.mkdir(parents=True, exist_ok=True)
 
+    run_config_path = run_dir / "run_config.json"
+
+    run_config = {
+        "split_seed": split_seed,
+        "model_seed": model_seed,
+        "training_config": settings,
+    }
+
+    if run_config_path.exists():
+        previous_config = json.loads(run_config_path.read_text(encoding="utf-8"))
+
+        if previous_config != run_config:
+            raise RuntimeError(f"Incompatible interrupted run: {run_dir}")
+    else:
+        if any(checkpoint_dir.glob("checkpoint-*")):
+            raise RuntimeError(f"Checkpoints exist without run configuration: {run_dir}")
+
+        run_config_path.write_text(
+            json.dumps(run_config, ensure_ascii=False, indent=2) + "\n",
+            encoding="utf-8",
+        )
+
     set_seed(model_seed)
 
     tokenizer = AutoTokenizer.from_pretrained(
@@ -320,10 +342,14 @@ def train_single_run(
         "validation_predictions": str(prediction_path.relative_to(root)),
     }
 
-    report_path.write_text(
+    temporary_report = report_path.with_suffix(".json.tmp")
+
+    temporary_report.write_text(
         json.dumps(report, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
+
+    temporary_report.replace(report_path)
 
     if settings["cleanup_checkpoints_after_success"]:
         shutil.rmtree(checkpoint_dir)
