@@ -79,6 +79,28 @@ def get_embedding_matrices(
 ) -> dict[str, tuple[np.ndarray, np.ndarray]]:
     directory = root / "artifacts" / "embeddings"
 
+    required_files = [directory / "ids.json"]
+
+    for model_name in models:
+        alias = embedding_alias(model_name)
+        required_files.extend(
+            [
+                directory / f"{alias}.npy",
+                directory / f"{alias}.json",
+            ]
+        )
+
+    missing_files = [path for path in required_files if not path.is_file()]
+
+    if missing_files:
+        missing_names = "\n".join(f"  - {path.relative_to(root)}" for path in missing_files)
+
+        raise RuntimeError(
+            "Missing required embedding artifacts:\n"
+            f"{missing_names}\n"
+            "Run 'uv run pun-stacking run embeddings' first."
+        )
+
     identifiers = json.loads((directory / "ids.json").read_text(encoding="utf-8"))
 
     if len(identifiers) != 5700 or len(set(identifiers)) != len(identifiers):

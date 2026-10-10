@@ -92,6 +92,7 @@ def main() -> None:
 
     if args.split_seed is not None and args.stage not in {
         "bertimbau",
+        "historical-baseline",
         "base-models",
         "early-fusion",
         "stacking",

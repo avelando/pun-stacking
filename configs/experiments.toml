@@ -93,3 +93,15 @@ classifier = "logistic_regression"
 C = 1.0
 max_iter = 2000
 standardize_numeric = true
+
+[historical_baseline]
+enabled = true
+ngram_min = 1
+ngram_max = 2
+calibration_folds = 3
+random_state = 30
+rf_seed = 40
+rf_estimators = 100
+rf_max_depth = 15
+lr_max_iter = 100
+svm_max_iter = 1000

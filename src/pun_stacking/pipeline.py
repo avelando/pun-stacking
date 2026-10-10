@@ -61,6 +61,14 @@ def train_stacking(split_seed: int | None = None) -> None:
     run_stacking(split_seed=split_seed)
 
 
+def train_historical_baseline(
+    split_seed: int | None = None,
+) -> None:
+    from pun_stacking.models.historical import run_historical_baseline
+
+    run_historical_baseline(split_seed=split_seed)
+
+
 def evaluate() -> None:
     raise NotImplementedError("Evaluation is not implemented")
 
@@ -75,6 +83,11 @@ STAGES = (
     Stage("early-fusion", "Run early fusion experiments", train_early_fusion),
     Stage("stacking", "Run stacking experiments", train_stacking),
     Stage("evaluation", "Evaluate models and generate reports", evaluate),
+    Stage(
+        "historical-baseline",
+        "Train historical TF-IDF soft-voting ensemble",
+        train_historical_baseline,
+    ),
 )
 
 
@@ -105,6 +118,13 @@ def run_stage(
                 raise ValueError("Embedding extraction does not use split or model seeds")
 
             extract_embeddings(model_name=embedding)
+            return
+
+        if name == "historical-baseline":
+            if model_seed is not None or embedding is not None:
+                raise ValueError("Historical baseline supports only the split seed filter")
+
+            train_historical_baseline(split_seed=split_seed)
             return
 
         if name == "base-models":
