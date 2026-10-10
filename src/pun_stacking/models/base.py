@@ -99,6 +99,21 @@ def get_embedding_matrices(
         if info["model"] != model_name or info["instances"] != len(identifiers):
             raise ValueError(f"Incompatible embedding metadata: {alias}")
 
+        embedding_config = load_experiment_config(root)["embeddings"]
+
+        from pun_stacking.embeddings.extract import input_prompt_for_model
+
+        expected_metadata = {
+            "model": model_name,
+            "instances": len(identifiers),
+            "max_length_requested": embedding_config["max_length"],
+            "normalized": embedding_config["normalize"],
+            "input_prefix": input_prompt_for_model(model_name),
+        }
+
+        if any(info.get(key) != value for key, value in expected_metadata.items()):
+            raise ValueError(f"Incompatible embedding configuration: {alias}")
+
         matrix = np.load(directory / f"{alias}.npy", mmap_mode="r")
 
         if (

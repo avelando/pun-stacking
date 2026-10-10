@@ -73,6 +73,9 @@ cleanup_checkpoints_after_success = true
 enabled = true
 meta_classifier = "logistic_regression"
 use_oof = true
+C = 1.0
+max_iter = 2000
+standardize = true
 
 [evaluation]
 primary_metric = "accuracy"

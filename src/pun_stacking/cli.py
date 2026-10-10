@@ -93,6 +93,7 @@ def main() -> None:
     if args.split_seed is not None and args.stage not in {
         "bertimbau",
         "base-models",
+        "stacking",
     }:
         parser.error("Split seed filtering is not supported for this stage")
 

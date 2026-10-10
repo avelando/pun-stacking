@@ -145,6 +145,10 @@ def extract_single_model(
     vectors_path = output_directory / f"{alias}.npy"
     metadata_path = output_directory / f"{alias}.json"
 
+    if vectors_path.is_file() != metadata_path.is_file():
+        vectors_path.unlink(missing_ok=True)
+        metadata_path.unlink(missing_ok=True)
+
     if vectors_path.is_file() and metadata_path.is_file():
         metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
 

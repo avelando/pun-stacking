@@ -53,8 +53,10 @@ def train_early_fusion() -> None:
     raise NotImplementedError("Early fusion is not implemented")
 
 
-def train_stacking() -> None:
-    raise NotImplementedError("Stacking is not implemented")
+def train_stacking(split_seed: int | None = None) -> None:
+    from pun_stacking.stacking.train import run_stacking
+
+    run_stacking(split_seed=split_seed)
 
 
 def evaluate() -> None:
@@ -108,6 +110,13 @@ def run_stage(
                 raise ValueError("Base models support only the split seed filter")
 
             train_base_models(split_seed=split_seed)
+            return
+
+        if name == "stacking":
+            if model_seed is not None or embedding is not None:
+                raise ValueError("Stacking supports only the split seed filter")
+
+            train_stacking(split_seed=split_seed)
             return
 
         if split_seed is not None or model_seed is not None or embedding is not None:
