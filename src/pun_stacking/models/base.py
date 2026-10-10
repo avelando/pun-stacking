@@ -142,6 +142,9 @@ def get_embedding_matrices(
 
 
 def make_classifier(name: str, settings: dict) -> Pipeline:
+    if settings["classifier"] != "logistic_regression":
+        raise ValueError("Unsupported base classifier")
+
     classifier = LogisticRegression(
         C=settings["C"],
         max_iter=settings["max_iter"],

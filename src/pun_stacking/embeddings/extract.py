@@ -275,7 +275,10 @@ def run_embeddings(
                 rows,
                 settings,
             )
-        elif metadata_path.is_file():
+        elif (
+            metadata_path.is_file()
+            and (output_directory / f"{model_alias(model_name)}.npy").is_file()
+        ):
             metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
         else:
             continue

@@ -86,3 +86,10 @@ classifier = "logistic_regression"
 C = 1.0
 max_iter = 2000
 tfidf_min_df = 2
+
+[early_fusion]
+enabled = true
+classifier = "logistic_regression"
+C = 1.0
+max_iter = 2000
+standardize_numeric = true

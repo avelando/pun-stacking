@@ -36,17 +36,36 @@ def load_final_graphs(
     project_root: Path | None = None,
 ) -> dict[str, nx.Graph]:
     root = (project_root or Path.cwd()).resolve()
-    directory = graph_directory(root, split_seed)
+    config = load_experiment_config(root)
 
+    summary_path = root / "reports" / "graphs_summary.json"
+
+    if not summary_path.is_file():
+        raise FileNotFoundError(f"Missing graph construction report: {summary_path}")
+
+    summary = json.loads(summary_path.read_text(encoding="utf-8"))
+
+    if summary.get("graph_configuration") != config["graphs"]:
+        raise RuntimeError("Saved graphs use a different configuration")
+
+    available_seeds = {item["split_seed"] for item in summary.get("partitions", [])}
+
+    if split_seed not in available_seeds:
+        raise ValueError(f"Missing graph report for split {split_seed}")
+
+    directory = graph_directory(root, split_seed)
     graphs = {}
 
     for name in GRAPH_NAMES:
         path = directory / f"{name}.joblib"
 
         if not path.is_file():
-            raise FileNotFoundError(f"Missing graph for split seed {split_seed}: {path}")
+            raise FileNotFoundError(f"Missing graph: {path}")
 
         graphs[name] = joblib.load(path)
+
+        if graphs[name].number_of_nodes() == 0 or graphs[name].number_of_edges() == 0:
+            raise ValueError(f"Invalid graph: {path}")
 
     return graphs
 
