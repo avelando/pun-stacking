@@ -42,7 +42,7 @@ def make_historical_model(
     training_rows: list[dict],
     settings: dict,
     portuguese_stopwords: list[str],
-) -> Pipeline:
+) -> VotingClassifier:
     labels = np.asarray(
         [row["label"] for row in training_rows],
         dtype=np.int64,
@@ -52,14 +52,14 @@ def make_historical_model(
         [pair_id(row["id"]) for row in training_rows],
     )
 
-    calibration_splitter = StratifiedGroupKFold(
+    splitter = StratifiedGroupKFold(
         n_splits=settings["calibration_folds"],
         shuffle=True,
         random_state=settings["random_state"],
     )
 
     calibration_folds = list(
-        calibration_splitter.split(
+        splitter.split(
             np.zeros(len(training_rows)),
             labels,
             groups,
@@ -67,68 +67,72 @@ def make_historical_model(
     )
 
     for train_indices, validation_indices in calibration_folds:
-        training_groups = set(groups[train_indices])
-        validation_groups = set(groups[validation_indices])
-
-        if training_groups & validation_groups:
-            raise ValueError("Pair crossing in internal SVM calibration")
+        if set(groups[train_indices]) & set(groups[validation_indices]):
+            raise ValueError("Pair crossing in SVM calibration")
 
         if set(labels[train_indices]) != {0, 1}:
-            raise ValueError("Calibration training fold has missing classes")
+            raise ValueError("Missing training classes in calibration")
 
         if set(labels[validation_indices]) != {0, 1}:
-            raise ValueError("Calibration validation fold has missing classes")
+            raise ValueError("Missing validation classes in calibration")
 
-    random_forest = RandomForestClassifier(
-        n_estimators=settings["rf_estimators"],
-        criterion="entropy",
-        max_depth=settings["rf_max_depth"],
-        random_state=settings["rf_seed"],
-        n_jobs=1,
+    def make_text_pipeline(estimator):
+        vectorizer = TfidfVectorizer(
+            ngram_range=(
+                settings["ngram_min"],
+                settings["ngram_max"],
+            ),
+            stop_words=portuguese_stopwords,
+            lowercase=True,
+            strip_accents="unicode",
+        )
+
+        return Pipeline(
+            [
+                ("tfidf", vectorizer),
+                ("classifier", estimator),
+            ]
+        )
+
+    random_forest = make_text_pipeline(
+        RandomForestClassifier(
+            n_estimators=settings["rf_estimators"],
+            criterion="entropy",
+            max_depth=settings["rf_max_depth"],
+            random_state=settings["rf_seed"],
+            n_jobs=1,
+        )
     )
 
-    logistic_regression = LogisticRegression(
-        random_state=settings["random_state"],
-        max_iter=settings["lr_max_iter"],
-        class_weight="balanced",
-    )
-
-    svm = CalibratedClassifierCV(
-        estimator=LinearSVC(
+    logistic_regression = make_text_pipeline(
+        LogisticRegression(
             random_state=settings["random_state"],
+            max_iter=settings["lr_max_iter"],
             class_weight="balanced",
-            max_iter=settings["svm_max_iter"],
+        )
+    )
+
+    calibrated_svm = CalibratedClassifierCV(
+        estimator=make_text_pipeline(
+            LinearSVC(
+                random_state=settings["random_state"],
+                class_weight="balanced",
+                max_iter=settings["svm_max_iter"],
+            )
         ),
         method="sigmoid",
         cv=calibration_folds,
         n_jobs=1,
     )
 
-    ensemble = VotingClassifier(
+    return VotingClassifier(
         estimators=[
             ("rf", random_forest),
             ("lr", logistic_regression),
-            ("svm", svm),
+            ("svm", calibrated_svm),
         ],
         voting="soft",
         n_jobs=1,
-    )
-
-    vectorizer = TfidfVectorizer(
-        ngram_range=(
-            settings["ngram_min"],
-            settings["ngram_max"],
-        ),
-        stop_words=portuguese_stopwords,
-        lowercase=True,
-        strip_accents="unicode",
-    )
-
-    return Pipeline(
-        [
-            ("tfidf", vectorizer),
-            ("ensemble", ensemble),
-        ]
     )
 
 

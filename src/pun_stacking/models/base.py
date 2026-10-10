@@ -11,6 +11,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 
 from pun_stacking.data.audit import load_jsonl, pair_id
+from pun_stacking.embeddings.prompts import input_prompt_for_model
 from pun_stacking.graphs.features import GraphFeatureEncoder
 from pun_stacking.graphs.runner import (
     build_fold_graphs,
@@ -122,8 +123,6 @@ def get_embedding_matrices(
             raise ValueError(f"Incompatible embedding metadata: {alias}")
 
         embedding_config = load_experiment_config(root)["embeddings"]
-
-        from pun_stacking.embeddings.extract import input_prompt_for_model
 
         expected_metadata = {
             "model": model_name,

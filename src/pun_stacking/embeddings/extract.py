@@ -8,6 +8,7 @@ import torch
 from sentence_transformers import SentenceTransformer
 
 from pun_stacking.data.audit import load_jsonl
+from pun_stacking.embeddings.prompts import input_prompt_for_model
 from pun_stacking.graphs.runner import load_experiment_config
 
 SPLITS = ("train", "validation", "test")
