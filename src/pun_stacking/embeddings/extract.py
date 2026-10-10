@@ -10,7 +10,6 @@ from sentence_transformers import SentenceTransformer
 from pun_stacking.data.audit import load_jsonl
 from pun_stacking.graphs.runner import load_experiment_config
 
-
 SPLITS = ("train", "validation", "test")
 
 
@@ -91,10 +90,8 @@ def encode_model(
         model.max_seq_length = effective_max_length
         model.eval()
 
-        if model_name == "intfloat/multilingual-e5-large":
-            inputs = [f"query: {text}" for text in texts]
-        else:
-            inputs = texts
+        prefix = input_prompt_for_model(model_name)
+        inputs = [f"{prefix}{text}" for text in texts]
 
         embeddings = model.encode(
             inputs,
@@ -148,10 +145,7 @@ def extract_single_model(
     vectors_path = output_directory / f"{alias}.npy"
     metadata_path = output_directory / f"{alias}.json"
 
-    if vectors_path.exists() or metadata_path.exists():
-        if not vectors_path.is_file() or not metadata_path.is_file():
-            raise RuntimeError(f"Incomplete embedding artifacts for {alias}")
-
+    if vectors_path.is_file() and metadata_path.is_file():
         metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
 
         expected = {
@@ -160,6 +154,7 @@ def extract_single_model(
             "max_length_requested": settings["max_length"],
             "normalized": settings["normalize"],
             "instances": len(rows),
+            "input_prefix": input_prompt_for_model(model_name),
         }
 
         if any(metadata.get(key) != value for key, value in expected.items()):
@@ -205,7 +200,7 @@ def extract_single_model(
         "max_length_requested": settings["max_length"],
         "max_length_effective": effective_max_length,
         "normalized": settings["normalize"],
-        "input_prefix": ("query: " if model_name == "intfloat/multilingual-e5-large" else ""),
+        "input_prefix": input_prompt_for_model(model_name),
         "sentence_transformers_version": sentence_transformers.__version__,
         "torch_version": torch.__version__,
         "vectors_file": str(vectors_path.relative_to(root)),
@@ -289,3 +284,13 @@ def run_embeddings(
     )
 
     print("Embedding extraction completed")
+
+
+def input_prompt_for_model(model_name: str) -> str:
+    if model_name == "intfloat/multilingual-e5-large":
+        return "query: "
+
+    if model_name == "google/embeddinggemma-300m":
+        return "task: classification | query: "
+
+    return ""

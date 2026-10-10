@@ -90,8 +90,14 @@ def main() -> None:
         run_pipeline()
         return
 
-    if args.stage != "bertimbau" and (args.split_seed is not None or args.model_seed is not None):
-        parser.error("Seed filters are only supported for BERTimbau")
+    if args.split_seed is not None and args.stage not in {
+        "bertimbau",
+        "base-models",
+    }:
+        parser.error("Split seed filtering is not supported for this stage")
+
+    if args.model_seed is not None and args.stage != "bertimbau":
+        parser.error("Model seed filtering is only supported for BERTimbau")
 
     if args.stage != "embeddings" and args.embedding is not None:
         parser.error("Embedding selection is only supported for embeddings")

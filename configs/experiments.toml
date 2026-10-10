@@ -77,3 +77,9 @@ use_oof = true
 [evaluation]
 primary_metric = "accuracy"
 metrics = ["accuracy", "f1_macro", "pair_exact_accuracy"]
+
+[base_models]
+classifier = "logistic_regression"
+C = 1.0
+max_iter = 2000
+tfidf_min_df = 2

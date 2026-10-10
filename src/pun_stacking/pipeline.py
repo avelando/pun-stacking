@@ -43,8 +43,10 @@ def extract_embeddings(model_name: str | None = None) -> None:
     run_embeddings(selected_model=model_name)
 
 
-def train_base_models() -> None:
-    raise NotImplementedError("Base model training is not implemented")
+def train_base_models(split_seed: int | None = None) -> None:
+    from pun_stacking.models.base import run_base_models
+
+    run_base_models(split_seed=split_seed)
 
 
 def train_early_fusion() -> None:
@@ -99,6 +101,13 @@ def run_stage(
                 raise ValueError("Embedding extraction does not use split or model seeds")
 
             extract_embeddings(model_name=embedding)
+            return
+
+        if name == "base-models":
+            if model_seed is not None or embedding is not None:
+                raise ValueError("Base models support only the split seed filter")
+
+            train_base_models(split_seed=split_seed)
             return
 
         if split_seed is not None or model_seed is not None or embedding is not None:
