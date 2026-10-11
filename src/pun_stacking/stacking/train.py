@@ -36,6 +36,8 @@ def get_configurations(config: dict) -> dict[str, list[str]]:
     }
 
     for embedding in embeddings:
+        configurations[f"{embedding}_only"] = [embedding]
+
         configurations[f"{embedding}_graphs"] = [
             embedding,
             *graphs,
@@ -47,7 +49,7 @@ def get_configurations(config: dict) -> dict[str, list[str]]:
             "ppmi",
         ]
 
-    if len(configurations) != 12:
+    if len(configurations) != 16:
         raise ValueError("Unexpected number of stacking configurations")
 
     for name, views in configurations.items():

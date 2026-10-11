@@ -35,28 +35,33 @@ def test_unimplemented_stage():
         run_stage("evaluation")
 
 
-def test_unimplemented_stage():
-    with pytest.raises(NotImplementedError):
-        run_stage("graphs")
-
-
-def test_pipeline_stops_on_unimplemented_stage(monkeypatch):
+def test_full_pipeline_excludes_protected_stages(monkeypatch):
     from pun_stacking import pipeline
+
+    executed = []
 
     monkeypatch.setattr(
         pipeline,
         "STAGES",
         (
             pipeline.Stage(
+                "data",
+                "Prepare dataset",
+                lambda: executed.append("data"),
+            ),
+            pipeline.Stage(
+                "freeze-protocol",
+                "Freeze protocol",
+                lambda: executed.append("freeze"),
+            ),
+            pipeline.Stage(
                 "evaluation",
-                "Run final test evaluation",
-                pipeline.evaluate,
+                "Final evaluation",
+                lambda: executed.append("evaluation"),
             ),
         ),
     )
 
-    with pytest.raises(
-        NotImplementedError,
-        match="Final test evaluation",
-    ):
-        pipeline.run_pipeline()
+    pipeline.run_pipeline()
+
+    assert executed == ["data"]

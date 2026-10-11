@@ -5,6 +5,7 @@ from pun_stacking.data.audit import audit_data
 from pun_stacking.data.folds import build_folds
 from pun_stacking.early_fusion.train import run_early_fusion
 from pun_stacking.embeddings.extract import run_embeddings
+from pun_stacking.evaluation.protocol import freeze_protocol
 from pun_stacking.evaluation.validation import run_validation_report
 from pun_stacking.graphs.runner import build_final_graphs
 from pun_stacking.models.base import run_base_models
@@ -63,6 +64,10 @@ def generate_validation_report() -> None:
     run_validation_report()
 
 
+def freeze_experimental_protocol() -> None:
+    freeze_protocol()
+
+
 def evaluate() -> None:
     raise NotImplementedError("Final test evaluation is not implemented")
 
@@ -87,6 +92,11 @@ STAGES = (
         generate_validation_report,
     ),
     Stage("evaluation", "Run final test evaluation", evaluate),
+    Stage(
+        "freeze-protocol",
+        "Freeze experimental evaluation protocol",
+        freeze_experimental_protocol,
+    ),
 )
 
 
@@ -143,5 +153,8 @@ def run_stage(
 
 
 def run_pipeline() -> None:
+    excluded = {"freeze-protocol", "evaluation"}
+
     for stage in STAGES:
-        run_stage(stage.name)
+        if stage.name not in excluded:
+            run_stage(stage.name)

@@ -19,7 +19,7 @@ def read_report(path: Path) -> dict:
     report = json.loads(path.read_text(encoding="utf-8"))
 
     if not isinstance(report, dict):
-        raise ValueError(f"Invalid report: {path}")
+        raise TypeError(f"Invalid report: {path}")
 
     return report
 
