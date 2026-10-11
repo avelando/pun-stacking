@@ -240,7 +240,7 @@ def train_single_run(
         per_device_eval_batch_size=settings["evaluation_batch_size"],
         gradient_accumulation_steps=settings["gradient_accumulation_steps"],
         weight_decay=settings["weight_decay"],
-        warmup_ratio=settings["warmup_ratio"],
+        warmup_steps=settings["warmup_ratio"],
         max_grad_norm=settings["max_grad_norm"],
         bf16=True,
         fp16=False,
@@ -257,7 +257,6 @@ def train_single_run(
         optim="adamw_torch",
         lr_scheduler_type="linear",
         report_to="none",
-        save_safetensors=True,
         dataloader_num_workers=0,
     )
 
