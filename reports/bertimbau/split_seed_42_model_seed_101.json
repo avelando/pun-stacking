@@ -1,0 +1,36 @@
+{
+  "model": "neuralmind/bert-large-portuguese-cased",
+  "split_strategy": "pair_controlled",
+  "split_seed": 42,
+  "model_seed": 101,
+  "training_examples": 3990,
+  "validation_examples": 570,
+  "training_config": {
+    "model": "neuralmind/bert-large-portuguese-cased",
+    "enabled": true,
+    "max_length": 256,
+    "learning_rate": 2e-05,
+    "epochs": 6,
+    "batch_size": 8,
+    "evaluation_batch_size": 8,
+    "gradient_accumulation_steps": 1,
+    "weight_decay": 0.01,
+    "warmup_ratio": 0.1,
+    "max_grad_norm": 1.0,
+    "early_stopping_patience": 2,
+    "save_total_limit": 2,
+    "cleanup_checkpoints_after_success": true
+  },
+  "validation_metrics": {
+    "accuracy": 0.7842105263157895,
+    "f1_macro": 0.7838586063489029,
+    "pair_exact_accuracy": 0.5894736842105263
+  },
+  "best_validation_f1_macro": 0.7838586063489029,
+  "best_checkpoint_step": 1996,
+  "training_global_step": 2994,
+  "pytorch_version": "2.14.1+cu130",
+  "transformers_version": "5.19.0",
+  "model_directory": "artifacts/bertimbau/split_seed_42/model_seed_101/best_model",
+  "validation_predictions": "reports/bertimbau/split_seed_42_model_seed_101_validation.csv"
+}
